@@ -6,11 +6,11 @@ typedef struct no{
 	struct no *esq, *dir;
 } No;
 
-No *iniciarArvVazia(){
+No *iniciarNoVazio(){
 	return NULL;
 }
 
-No *criarArvore(int ch, No *e, No *d){
+No *criarNo(int ch, No *e, No *d){
 	No *novo = (No*)malloc(sizeof(No));
 	novo->chave = ch;
 	novo->esq = e;
@@ -41,7 +41,7 @@ No *remover(No *raiz, int ch){
 		else{
 			if(raiz->esq == NULL && raiz->dir == NULL){
 				free(raiz);
-				raiz = iniciarArvVazia();
+				raiz = iniciarNoVazio();
 			}
 			else if(raiz->dir == NULL){
 				No *aux = raiz;
@@ -66,13 +66,13 @@ No *remover(No *raiz, int ch){
 	}
 }
 
-No *limparArvore(No *raiz){
+No *limpar(No *raiz){
 	if(raiz !=NULL){
-		raiz->esq = limparArvore(raiz->esq);
-		raiz->dir = limparArvore(raiz->dir);
+		raiz->esq = limpar(raiz->esq);
+		raiz->dir = limpar(raiz->dir);
 		free(raiz);
 	}
-	return iniciarArvVazia();
+	return iniciarNoVazio();
 }
 
 No *buscar(No *raiz, int ch){
@@ -111,30 +111,30 @@ void posOrdem(No *raiz){
 }
 
 int main(){
-	No *arvore = criarArvore(8, iniciarArvVazia(), iniciarArvVazia());
+	No *no = criarNo(8, iniciarNoVazio(), iniciarNoVazio());
 	
-	arvore = inserir(arvore, criarArvore(4, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(12, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(6, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(9, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(20, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(11, iniciarArvVazia(), iniciarArvVazia()));
-	arvore = inserir(arvore, criarArvore(3, iniciarArvVazia(), iniciarArvVazia()));
+	no = inserir(no, criarNo(4, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(12, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(6, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(9, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(20, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(11, iniciarNoVazio(), iniciarNoVazio()));
+	no = inserir(no, criarNo(3, iniciarNoVazio(), iniciarNoVazio()));
 	
 	printf("\nPré-Ordem: ");
-	preOrdem(arvore);
+	preOrdem(no);
 	printf("\nIn-Ordem: ");
-	inOrdem(arvore);
+	inOrdem(no);
 	printf("\nPós-Ordem: ");
-	posOrdem(arvore);
+	posOrdem(no);
 	
-	printf("\nBusca: %d\n", buscar(arvore, 9)->chave);
+	printf("\nBusca: %d\n", buscar(no, 9)->chave);
 	
-	arvore = remover(arvore, 8);
+	no = remover(no, 8);
 	printf("\nPré-Ordem: ");
-	preOrdem(arvore);
+	preOrdem(no);
 	
-	arvore = limparArvore(arvore);
+	no = limpar(no);
 
 	return 0;
 }
